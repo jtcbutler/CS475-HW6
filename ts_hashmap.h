@@ -3,19 +3,23 @@
 // A hashmap entry stores the key, value
 // and a pointer to the next entry
 typedef struct ts_entry_t {
-   int key;
-   int value;
-   struct ts_entry_t *next;
+	int key;
+	int value;
+	struct ts_entry_t *next;
 } ts_entry_t;
 
 // A hashmap contains an array of pointers to entries,
 // the capacity of the array, the size (number of entries stored), 
 // and the number of operations that it has run.
 typedef struct ts_hashmap_t {
-   ts_entry_t **table;
-   int numOps;
-   int capacity;
-   int size;
+	ts_entry_t **table;
+	int capacity;
+	int numOps;
+	int size;
+
+	pthread_mutex_t *tableLocks;
+	pthread_mutex_t numOpsLock;
+	pthread_mutex_t sizeLock;
 } ts_hashmap_t;
 
 // function declarations
